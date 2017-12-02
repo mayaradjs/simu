@@ -10,18 +10,34 @@ typedef struct dadosCliente{
 
 
 
-int final=0, inicio=0;
+int final=-1, inicio=-1;
 unsigned int tam;
 
-int insere (dadosCliente *F, dadosCliente cliente) {
-//  if ( (tam + inicio - final)%tam != 1 ) {
-     F[final] = cliente;
-     final = (final%tam)+1;
-     //return 0;
-//  }
-   //Fila cheia!!!);
- // return 1;
+/*int*/void insere (dadosCliente *F, dadosCliente cliente) {
+ if ( (final+1)%tam != inicio ) {//se a fila nao estiver cheia, nao sei o que fazer se a fila estiver cheia
+	final = (final+1)%tam;
+     	F[final] = cliente;
+	
+	//se for vazia, inicio passa a ser 0
+	if (inicio==-1)
+		inicio=0;
+     		
+ }
+
 }
+
+dadosCliente remover (dadosCliente *filaAtendimento) {
+	dadosCliente cliente;
+	if (inicio != final) {
+		cliente = filaAtendimento[inicio];
+		inicio = (inicio+1)%tam;
+	}
+
+	return cliente;
+}
+
+
+
 
 
 int main(){
@@ -29,7 +45,7 @@ int main(){
 	unsigned int n, m;
 
 	scanf ("%u %u", &m, &n);
-	tam = (int)pow(n, 0.5);	
+	tam = (int)sqrt(n);	
 
 	dadosCliente filaAtendimento[tam], cliente;
 
@@ -38,7 +54,8 @@ int main(){
 		insere(filaAtendimento, cliente);
 	}
 
-
+	for (int i=0; i<tam; i++){
+		printf("\n%u %u %u\n", filaAtendimento[i].cod, filaAtendimento[i].operacao, filaAtendimento[i].valor);}
 
 return 0;
 }
