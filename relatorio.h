@@ -6,16 +6,15 @@
 
 typedef struct atendimento {
     unsigned int cod, saldo;
-    int qtdAtendimento=0;
-    struct atendimento *prev;
-    struct atendimento *next;
+    int qtdAtendimento;
+    struct atendimento *prox;
+    struct atendimento *ant;
 }atendimento;
 
-atendimento *apontador;
 
 
-void contabilizaCliente(unsigned int cod, int op, unsigned int valor);
-
+atendimento *contabilizaCliente(atendimento dadosAtendimento, int op);
+void imprimeRelatorio();
 
 
 #endif

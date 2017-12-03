@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "relatorio.h"
 
 typedef struct dadosCliente{
 
-	unsigned int cod, operacao, valor;
+	unsigned int cod, valor;
+	int operacao;
 	
 } dadosCliente;
 
@@ -12,7 +14,7 @@ typedef struct dadosCliente{
 
 int final=-1, inicio=-1;
 unsigned int tam;
-
+atendimento* apontador;
 
 //===============================
 //     INSERE CLIENTE NA FILA
@@ -41,6 +43,18 @@ dadosCliente remover (dadosCliente *filaAtendimento) {
 	return cliente;
 }
 
+//================================================================
+//          ENVIA OS DADOS DO ATENDIMENTO ADD NO RELATORIO
+//================================================================
+void addRelatorio(dadosCliente clienteAtendido){
+
+	atendimento novoAtendimento;
+	novoAtendimento.cod = clienteAtendido.cod;
+	novoAtendimento.saldo = clienteAtendido.valor;		
+	apontador = contabilizaCliente(novoAtendimento, clienteAtendido.operacao);
+
+}
+
 
  
 //===============================
@@ -48,32 +62,30 @@ dadosCliente remover (dadosCliente *filaAtendimento) {
 //===============================
 int main(){
 
+	init();
+
 	unsigned int n, m;
 
 	scanf ("%u %u", &m, &n);
-	tam = (int)sqrt(n);	
+	tam = (int)sqrt(n);
+
 
 	dadosCliente filaAtendimento[tam], cliente, clienteAtendido;
 
 	for (int i=0; i<n; i++){
-		scanf("%u %u %u", &cliente.cod, &cliente.operacao, &cliente.valor);
+		scanf("%u %d %u", &cliente.cod, &cliente.operacao, &cliente.valor);
 		insere(filaAtendimento, cliente);
 		clienteAtendido = remover(filaAtendimento);
-		//deve mandar clienteAtendido para o caixa
-		contabilizaCliente(clienteAtendido.cod, clienteAtendido.operacao, clienteAtendido.valor);
+
+		//aqui deve mandar clienteAtendido para o caixa
+
+		addRelatorio(clienteAtendido);
+
 	}
 
+	imprimeRelatorio();
+
 return 0;
-}
-
-
-//====================================================
-//   INSERE CLIENTE NA LISTA DE CLIENTES ATENDIDOS
-//====================================================
-void contabilizaCliente(){
-
-
-
 }
 
 
