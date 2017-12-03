@@ -15,6 +15,7 @@ typedef struct atendimento {
 
 atendimento *contabilizaCliente(atendimento dadosAtendimento, int op);
 void imprimeRelatorio();
+void init();
 
 
 #endif

@@ -36,9 +36,11 @@ atendimento* apontador;
 //   REMOVE CLIENTE DA FILA
 //===============================
 dadosCliente remover (dadosCliente *filaAtendimento) {
-
-	dadosCliente cliente = filaAtendimento[inicio];
-	inicio = (inicio+1)%tam;
+	dadosCliente cliente;
+	if (inicio >=0){
+		cliente = filaAtendimento[inicio];
+		inicio = (inicio+1)%tam;
+	}else printf("Lista vazia\n");
 
 	return cliente;
 }
@@ -63,7 +65,7 @@ void addRelatorio(dadosCliente clienteAtendido){
 int main(){
 
 	init();
-
+	apontador = (atendimento*)malloc(sizeof(atendimento))
 	unsigned int n, m;
 
 	scanf ("%u %u", &m, &n);
@@ -75,6 +77,7 @@ int main(){
 	for (int i=0; i<n; i++){
 		scanf("%u %d %u", &cliente.cod, &cliente.operacao, &cliente.valor);
 		insere(filaAtendimento, cliente);
+
 		clienteAtendido = remover(filaAtendimento);
 
 		//aqui deve mandar clienteAtendido para o caixa

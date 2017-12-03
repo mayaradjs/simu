@@ -11,6 +11,9 @@ atendimento *contabilizaCliente(atendimento dadosAtendimento, int op){
 	atend.qtdAtendimento = 0;
 	atend.prox = NULL;
 	atend.ant = NULL;
+
+	aux = (atendimento*)malloc(sizeof(atendimento));
+
 	if (op == 0){
 		atend.saldo = dadosAtendimento.saldo;
 	}else{
