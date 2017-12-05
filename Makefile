@@ -1,5 +1,5 @@
 all: relatorio.o agencia.o
-	gcc -g relatorio.o agencia.o -o relatorio -Wall -lm
+	gcc -g relatorio.o agencia.o -o agenciabancaria -Wall -lm
 
 relatorio.o:
 	gcc -g -c relatorio.c
@@ -8,4 +8,4 @@ agencia.o:
 	gcc -g agencia.c
 
 clean:
-	rm *.o relatorio
+	rm -rf *.o agenciabancaria

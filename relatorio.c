@@ -6,59 +6,76 @@ unsigned int contCliente=0;
 
 atendimento *contabilizaCliente(atendimento dadosAtendimento, int op){
 
-	atendimento atend, a, *aux;
-	atend.cod = dadosAtendimento.cod;
-	atend.qtdAtendimento = 0;
-	atend.prox = NULL;
-	atend.ant = NULL;
+	atendimento *atend, a, *aux;
+	atend = (atendimento*)malloc(sizeof(atendimento));
+
+	atend->cod = dadosAtendimento.cod;
+	atend->qtdAtendimento = 1;
+	atend->prox = NULL;
+	atend->ant = cabeca;
 
 	aux = (atendimento*)malloc(sizeof(atendimento));
 
+
 	if (op == 0){
-		atend.saldo = dadosAtendimento.saldo;
+		atend->saldo = dadosAtendimento.saldo;
 	}else{
-		atend.saldo = 0 - dadosAtendimento.saldo;
+		atend->saldo = 0 - dadosAtendimento.saldo;
 	}
 	contCliente++;
 
+
 	if ((cabeca->prox) == NULL){
-			atend.ant = cabeca;
-			atend.prox = NULL;
-			cabeca->prox = &atend;
+			cabeca->prox = atend;
 	}else{
 		a.prox = cabeca->prox;
 
+
 		do{
-			if ((a.prox)->cod == atend.cod){
-				(a.prox)->saldo = (a.prox)->saldo + atend.saldo;
-				(a.prox)->qtdAtendimento++;
+
+			if (((a.prox)->cod) == (atend->cod)){
+				(a.prox)->saldo = (a.prox)->saldo + atend->saldo;
+				(a.prox)->qtdAtendimento = ((a.prox)->qtdAtendimento) +1;
 				contCliente--;
-			}else if (((a.prox)->cod) > (atend.cod)){
-				aux = (a.prox)->ant;
-				(a.prox)->ant = &atend;
-				atend.ant = aux;
-				atend.prox = a.prox;
-				aux->prox = &atend;
+				break;
+				
+			}else if (((a.prox)->cod) > (atend->cod)){
+
+				aux->prox = (a.prox)->ant;
+				(a.prox)->ant = atend;
+				atend->ant = aux->prox;
+				atend->prox = a.prox;
+				(aux->prox)->prox = atend;
+
+
 			}else{
-				a.prox = (a.prox)->prox;
-				if (a.prox==NULL){
-					a.prox = &atend;
-					atend.ant = (a.prox)->ant;
-					}
+				if (((a.prox)->prox) == NULL){
+					(a.prox)->prox = atend;
+					atend->ant = a.prox;
+					break;
+				}else
+					a.prox = (a.prox)->prox;
+
 			}
-		}while((a.prox!=NULL) && ((a.prox)->cod < atend.cod));
+
+
+
+		}while((a.prox!=NULL) && ((a.prox)->cod <= atend->cod));
+
 	}
 
-	return (atend.prox)->ant;
+
+	return atend;
 
 }
+
 
 void imprimeRelatorio(){
 	atendimento a;
 	a.prox = cabeca->prox;
 	printf("%u\n", contCliente);
 	while (a.prox != NULL){
-		printf("%u %d %u\n", (a.prox)->cod, (a.prox)->qtdAtendimento, (a.prox)->saldo);
+		printf("%lld %lld %lld\n", (a.prox)->cod, (a.prox)->qtdAtendimento, (a.prox)->saldo);
 		a.prox = (a.prox)->prox;
 	}
 

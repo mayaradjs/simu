@@ -5,8 +5,8 @@
 #define RELATORIO_H
 
 typedef struct atendimento {
-    unsigned int cod, saldo;
-    int qtdAtendimento;
+    long long int cod, saldo;
+    long long int qtdAtendimento;
     struct atendimento *prox;
     struct atendimento *ant;
 }atendimento;
