@@ -1,4 +1,7 @@
 #include "relatorio.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 
 atendimento *cabeca;
 

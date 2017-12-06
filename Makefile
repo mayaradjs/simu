@@ -5,7 +5,7 @@ relatorio.o:
 	gcc -g -c relatorio.c
 
 agencia.o:
-	gcc -g agencia.c
+	gcc -g -c agencia.c
 
 clean:
 	rm -rf *.o agenciabancaria
